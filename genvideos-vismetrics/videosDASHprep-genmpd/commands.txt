@@ -17,6 +17,10 @@ Options:
   --show-sample-data: show sample data
   --fast:             skip some details that are slow to compute
 
+Example:
+python3 mp4utils.py mp4info --verbose ../../../../genvideos-vismetrics/diffvideoconfigs/cleanbandit-ratherbe-medium.mp4
+
+
 MP4FRAGMENT - tool that creates a fragmented MP4 file from a non-fragmented one
 Running the tool without any argument will print out a summary of the tool’s command line options and parameters.
 The tool can also be used to re-fragement a file that’s already in fragmented-MP4 form. 
@@ -36,9 +40,15 @@ options are:
   --force-i-frame-sync <auto|all> treat all I-frames as sync samples (for open-gop sequences)
     'auto' only forces the flag if an open-gop source is detected, 'all' forces the flag in all cases
 
+Example: 
+python3 mp4utils.py mp4fragment ../../../../genvideos-vismetrics/diffvideoconfigs/cleanbandit-ratherbe-medium.mp4 ../../../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented.mp4
+
+
 MP4DASH - tool that is used to package one or more MP4 media files into an MPEG DASH (and/or Smooth Streaming) presentation.
 For an overview of MPEG DASH, and usage guide for mp4dash, please consult the MPEG DASH Overview page.
 Running the tool without any argument will print out a summary of the tool’s command line options and parameters.
+
+More detailed info on how to use it on : https://www.bento4.com/developers/dash/
 
 Usage: mp4-dash.py [options]  [ ...]
 
@@ -198,3 +208,5 @@ Options:
   --exec-dir=
                         Directory where the Bento4 executables are located
                         (use '-' to look for executable in the current PATH)
+
+Example:
