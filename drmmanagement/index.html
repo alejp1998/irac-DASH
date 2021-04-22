@@ -79,8 +79,8 @@
             video = document.querySelector("video");
 
             player = dashjs.MediaPlayer().create();
-            player.setProtectionData(protData);
             player.initialize(video, mpd_url, true);
+            player.setProtectionData(protData);
             player.on(dashjs.MediaPlayer.events["PLAYBACK_ENDED"], function() {
                 clearInterval(eventPoller);
             });

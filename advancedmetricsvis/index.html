@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8"/>
+<title>Advanced Metrics</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA==" crossorigin="anonymous" />
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/3.2.2/dash.all.min.js" integrity="sha512-vYbnErl9JO63c2v/ADkEKrYfQChzm4v7nU+55A5EvO7P+AYm9bmdtZhBA6Fg8FkfqEvXJLd/k9L26d1HS1eOtg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js" integrity="sha256-lISRn4x2bHaafBiAb0H5C7mqJli7N0SH+vrapxjIz3k=" crossorigin="anonymous"></script>
+<link href='https://fonts.googleapis.com/css?family=Megrim' rel='stylesheet'>
+	<style>
+		.logo1 {
+			color : white;
+			font-family: 'Megrim';
+			font-size: 30px;
+		}
+		.navlogo {
+			background: linear-gradient(to left, white, hsl(217, 71%, 53%));
+		}
+		.wrapper {
+            max-width: 1200px;
+            min-height: 80vh;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+	</style>
+</head>
+
+<body>
+<div class="wrapper">
+	<nav class="navbar navlogo logo" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item logo1" href="/">EQUIPO 37</a>
+        </div>
+	</nav>
+
+	<script type="text/javascript">
+	(function() {
+		var burger = document.querySelector('.burger');
+		var nav = document.querySelector('#'+burger.dataset.target);
+		burger.addEventListener('click', function(){
+		burger.classList.toggle('is-active');
+		nav.classList.toggle('is-active');
+		});
+	})();
+	</script>
+
+	<div id='mainDiv' class="box">
+        <div class="columns">
+            <div class="column is-8 box">
+                <h1 class="subtitle is-3">Clean Bandit - Rather Be | MPD Generated Video</h1>
+                <div class="code">
+                    <video class="dashjs-player" autoplay controls preload="auto" muted></video>
+                </div>
+            </div>
+            <div class="column is-4">
+                <h1 class="subtitle is-3">Real-time Metrics</h1>
+                <div class="code">
+                    <p><span class="tag is-primary is-large">Bitrate</span> <span id="bitrate"></span></p>
+                    <br>
+                    <p><span class="tag is-primary is-large">Buffer Level</span> <span id="bufferlevel"></span></p>
+                    <br>
+                    <p><span class="tag is-primary is-large">Framerate</span>  <span id="framerate"></span></p>
+                    <br>
+                    <p><span class="tag is-primary is-large">Representation</span>  <span id="representation"></span></p>
+                </div>
+            </div>
+        </div>
+		
+        <h1 class="subtitle is-3">Metrics Visualization</h1>
+        <div class="columns">
+            <div class="column box">
+                <canvas id="chart1" height="100"></canvas>
+            </div>
+        </div>
+	</div>      
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+            init();
+        });
+
+        function addData(chart, label, data) {
+            chart.data.labels.push('');
+            chart.data.datasets.forEach((dataset) => {
+                if (dataset.label == label){
+                    dataset.data.push(data);
+                }
+            });
+            chart.update();
+        }
+
+        function removeData(chart) {
+            chart.data.labels.shift();
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.shift();
+            });
+            chart.update();
+        }
+
+        var ch1 = document.getElementById('chart1').getContext('2d');
+        var chart1 = new Chart(ch1, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        label: 'Bitrate',
+                        data: [],
+                        backgroundColor:'#00FFFF',
+                        borderColor:'#00FFFF',
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Buffer Level',
+                        data: [],
+                        backgroundColor:'#8A2BE2',
+                        borderColor:'#8A2BE2',
+                        yAxisID:'y1'
+                    },
+                    {
+                        label: 'Framerate',
+                        data: [],
+                        backgroundColor:'#7FFF00',
+                        borderColor:'#7FFF00',
+                        yAxisID:'y1'
+                    }
+                ]
+
+            },
+            options: {
+                responsive: true,
+                hoverMode: 'index',
+                stacked: false,
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Bitrate (kbps)'
+                        },
+                        display: true,
+                        type: 'linear',
+                        position: 'left'
+                    },
+                    y1: {
+                        title: {
+                            display: true,
+                            text: 'Buffer Level (secs) & Framerate (fps)'
+                        },
+                        display: true,
+                        type: 'linear',
+                        position: 'right',
+                    }
+                }
+            }
+        });
+        
+        function init(){
+            var video,player,mpd_url = "./mpd/stream.mpd";
+            
+            video = document.querySelector("video");
+
+            player = dashjs.MediaPlayer().create();
+            player.initialize(video, mpd_url, true);
+            player.on(dashjs.MediaPlayer.events["PLAYBACK_ENDED"], function() {
+                clearInterval(eventPoller);
+            });
+
+            var n = 0;
+
+            var eventPoller = setInterval(function() {
+                var streamInfo = player.getActiveStream().getStreamInfo();
+                var dashMetrics = player.getDashMetrics();
+                var dashAdapter = player.getDashAdapter();
+            
+                if (dashMetrics && streamInfo) {
+                    const periodIdx = streamInfo.index;
+                    
+                    var repSwitch = dashMetrics.getCurrentRepresentationSwitch('video', true);
+                    var bufferLevel = dashMetrics.getCurrentBufferLevel('video', true);
+                    
+                    var bitrate = repSwitch ? Math.round(dashAdapter.
+                        getBandwidthForRepresentation(repSwitch.to,
+                        periodIdx) / 1000) : NaN;
+                    
+                        var adaptation = dashAdapter.getAdaptationForType(periodIdx, 'video', streamInfo)
+                    var frameRate = adaptation.Representation_asArray.find(function (rep) {
+                        return rep.id === repSwitch.to
+                    }).frameRate;
+
+                    document.getElementById('bufferlevel').innerText = bufferLevel + " secs";
+                    document.getElementById('bitrate').innerText = bitrate + " kbps";
+                    document.getElementById('framerate').innerText = frameRate + " fps";
+                    document.getElementById('representation').innerText = repSwitch.to;
+                    
+                    today = new Date();
+                    time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+ "." + today.getMilliseconds();
+
+                    buffer_data = {x: time, y: bufferLevel};
+                    bitrate_data = {x: time, y: bitrate};
+                    framerate_data = {x: time, y: frameRate};
+
+                    
+                    addData(chart1,'Buffer Level',buffer_data);
+                    addData(chart1,'Bitrate',bitrate_data);
+                    addData(chart1,'Framerate',framerate_data);
+
+                    /*
+                    n++;
+                    if (n > 10) {
+                        removeData(chart1);
+                    }
+                    */
+                }
+            }, 500);
+        }
+	</script>
+</div>
+
+</body>
+</html>
