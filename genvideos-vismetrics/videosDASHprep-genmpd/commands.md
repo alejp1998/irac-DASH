@@ -1,13 +1,14 @@
-INSTALL (BUILD) Bento4
+# INSTALL (BUILD) Bento4
 1. Navigate to folder: cd Bento4
 2. Build: cmake -DCMAKE_BUILD_TYPE=Release
 
-TOOLS - In order to use them, we must run the corresponding python script located inside Bento4/Source/Python/utils
+# TOOLS 
+In order to use them, we must navigate tothe corresponding folder with the commands located inside Bento4-SDK-1-6-0-637/bin
 
-MP4INFO - tool to display high level info about an MP4 file, including all tracks and codec details. 
+## MP4INFO - tool to display high level info about an MP4 file, including all tracks and codec details. 
 The output can be human-readable text, or a JSON object.
 
-usage: mp4info [options] <input>
+### usage: mp4info [options] <input>
 Options:
   --verbose:          show extended information when available
   --format <format>:  display the information in this format.
@@ -17,16 +18,16 @@ Options:
   --show-sample-data: show sample data
   --fast:             skip some details that are slow to compute
 
-Example:
-python3 mp4utils.py mp4info --verbose ../../../../genvideos-vismetrics/diffvideoconfigs/cleanbandit-ratherbe-medium.mp4
+### Example:
+./mp4info  ../../genvideos-vismetrics/diffvideoconfigs/cleanbandit-ratherbe-medium.mp4
 
 
-MP4FRAGMENT - tool that creates a fragmented MP4 file from a non-fragmented one
+## MP4FRAGMENT - tool that creates a fragmented MP4 file from a non-fragmented one
 Running the tool without any argument will print out a summary of the tool’s command line options and parameters.
 The tool can also be used to re-fragement a file that’s already in fragmented-MP4 form. 
 This can be useful if you need to fix certain defficiencies of a fragmented MP4 file, such as the lack of tdft boxes in fragment headers, or if you need to change the timescale.
 
-usage: mp4fragment [options] <input> <output>
+### usage: mp4fragment [options] <input> <output>
 options are:
   --verbosity <n> sets the verbosity (details) level to <n> (between 0 and 3)
   --debug enable debugging information output
@@ -40,17 +41,25 @@ options are:
   --force-i-frame-sync <auto|all> treat all I-frames as sync samples (for open-gop sequences)
     'auto' only forces the flag if an open-gop source is detected, 'all' forces the flag in all cases
 
-Example: 
-python3 mp4utils.py mp4fragment ../../../../genvideos-vismetrics/diffvideoconfigs/cleanbandit-ratherbe-medium.mp4 ../../../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented.mp4
+### Example: 
+
+- Low Quality Video Fragmentation
+./mp4fragment ../../genvideos-vismetrics/diffvideoconfigs/cleanbandit-ratherbe-low.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-low-fragmented.mp4
+
+- Medium Quality Video Fragmentation
+./mp4fragment ../../genvideos-vismetrics/diffvideoconfigs/cleanbandit-ratherbe-medium.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented.mp4
+
+- High Quality Video Fragmentation
+./mp4fragment ../../genvideos-vismetrics/diffvideoconfigs/cleanbandit-ratherbe-high.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-high-fragmented.mp4
 
 
-MP4DASH - tool that is used to package one or more MP4 media files into an MPEG DASH (and/or Smooth Streaming) presentation.
+## MP4DASH - tool that is used to package one or more MP4 media files into an MPEG DASH (and/or Smooth Streaming) presentation.
 For an overview of MPEG DASH, and usage guide for mp4dash, please consult the MPEG DASH Overview page.
 Running the tool without any argument will print out a summary of the tool’s command line options and parameters.
 
 More detailed info on how to use it on : https://www.bento4.com/developers/dash/
 
-Usage: mp4-dash.py [options]  [ ...]
+### Usage: mp4-dash.py [options]  [ ...]
 
 Each  is the path to a fragmented MP4 file, optionally prefixed
 with a stream selector delimited by [ and ]. The same input MP4 file may be
@@ -209,4 +218,5 @@ Options:
                         Directory where the Bento4 executables are located
                         (use '-' to look for executable in the current PATH)
 
-Example:
+### Example:
+./mp4dash ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-low-fragmented.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-high-fragmented.mp4 -o ../../genvideos-vismetrics/videosDASHprep-genmpd/mpd
