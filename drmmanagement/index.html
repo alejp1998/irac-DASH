@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8"/>
-<title>Metrics-MPDFile</title>
+<title>Metrics-DRM-MPDFile</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA==" crossorigin="anonymous" />
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/3.2.2/dash.all.min.js" integrity="sha512-vYbnErl9JO63c2v/ADkEKrYfQChzm4v7nU+55A5EvO7P+AYm9bmdtZhBA6Fg8FkfqEvXJLd/k9L26d1HS1eOtg==" crossorigin="anonymous"></script>
@@ -63,11 +63,23 @@
         });
 
         function init(){
-            var video,player,mpd_url = "./videosDASHprep-genmpd/mpd/stream.mpd";
+            var video,player,mpd_url = "./mpd/stream.mpd";
             
+            const KEY = "hyN9IKGfWKdAwFaE5pm0qg";
+            const KID = "oW5AK5BW43HzbTSKpiu3SQ";
+
+            const protData = {
+                "org.w3.clearkey": {
+                    "clearkeys": {
+                        "oW5AK5BW43HzbTSKpiu3SQ" : "hyN9IKGfWKdAwFaE5pm0qg"
+                    }
+                }
+            };
+
             video = document.querySelector("video");
 
             player = dashjs.MediaPlayer().create();
+            player.setProtectionData(protData);
             player.initialize(video, mpd_url, true);
             player.on(dashjs.MediaPlayer.events["PLAYBACK_ENDED"], function() {
                 clearInterval(eventPoller);

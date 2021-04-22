@@ -15,7 +15,7 @@ x264 --output cleanbandit-ratherbe-medium.264 --preset slow --bitrate 600 --vbv-
 MP4Box -add cleanbandit-ratherbe-medium.264 -fps 24 cleanbandit-ratherbe-medium.mp4
 
 # HIGH 
-##HIGH - cleanbandit-ratherbe-high.264
+## HIGH - cleanbandit-ratherbe-high.264
 x264 --output cleanbandit-ratherbe-high.264 --preset slow --bitrate 2400 --vbv-maxrate 4800 --vbv-bufsize 9600 --min-keyint 48 --keyint 48 --scenecut 0 --no-scenecut --pass 1 --video-filter "resize:width=1280,height=720" cleanbandit-ratherbe.mp4
 
 ## HIGH MP4 - cleanbandit-ratherbe-high.mp4
