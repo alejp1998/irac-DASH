@@ -1,7 +1,3 @@
-# INSTALL (BUILD) Bento4
-1. Navigate to folder: cd Bento4
-2. Build: cmake -DCMAKE_BUILD_TYPE=Release
-
 # TOOLS 
 In order to use them, we must navigate tothe corresponding folder with the commands located inside Bento4-SDK-1-6-0-637/bin
 
