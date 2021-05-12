@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8"/>
+<title>Metrics-DRM-MPDFile</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA==" crossorigin="anonymous" />
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/3.2.2/dash.all.min.js" integrity="sha512-vYbnErl9JO63c2v/ADkEKrYfQChzm4v7nU+55A5EvO7P+AYm9bmdtZhBA6Fg8FkfqEvXJLd/k9L26d1HS1eOtg==" crossorigin="anonymous"></script>
+<link href='https://fonts.googleapis.com/css?family=Megrim' rel='stylesheet'>
+	<style>
+		.logo1 {
+			color : white;
+			font-family: 'Megrim';
+			font-size: 30px;
+		}
+		.navlogo {
+			background: linear-gradient(to left, white, hsl(217, 71%, 53%));
+		}
+		.wrapper {
+            max-width: 1200px;
+            min-height: 80vh;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+	</style>
+</head>
+
+<body>
+<div class="wrapper">
+	<nav class="navbar navlogo logo" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item logo1" href="/">EQUIPO 37</a>
+        </div>
+	</nav>
+	<div id='mainDiv' class="box">
+		<h1 class="subtitle is-3">Clean Bandit - Rather Be | MPD Generated Video</h1>
+		<div class="code">
+            <video class="dashjs-player" autoplay controls preload="auto" muted></video>
+        </div>
+        <div class="code">
+            <p>Video Bitrate: <span id="bitrate"></span></p>
+             <p>Video Buffer: <span id="buffer"></span></p>
+             <p>Video Representation: <span id="representation"></span></p>
+        </div>
+	</div>  
+	<script src="bundle.js"></script>
+
+</div>
+
+</body>
+</html>
