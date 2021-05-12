@@ -34,23 +34,12 @@
         </div>
 	</nav>
 
-	<script type="text/javascript">
-	(function() {
-		var burger = document.querySelector('.burger');
-		var nav = document.querySelector('#'+burger.dataset.target);
-		burger.addEventListener('click', function(){
-		burger.classList.toggle('is-active');
-		nav.classList.toggle('is-active');
-		});
-	})();
-	</script>
-
 	<div id='mainDiv' class="box">
 		<h1 class="subtitle is-3">Clean Bandit - Rather Be | MPD Generated Video</h1>
-		<div class="code">
-            <video class="dashjs-player" autoplay controls preload="auto" muted></video>
+		<div>
+            <video class="dashjs-player" autoplay controls preload="auto"></video>
         </div>
-        <div class="code">
+        <div>
             <p>Video Bitrate: <span id="bitrate"></span></p>
              <p>Video Buffer: <span id="buffer"></span></p>
              <p>Video Representation: <span id="representation"></span></p>
@@ -64,7 +53,7 @@
 
         function init(){
             var video,player,mpd_url = "./mpd/stream.mpd";
-            
+
             const KEY = "hyN9IKGfWKdAwFaE5pm0qg";
             const KID = "oW5AK5BW43HzbTSKpiu3SQ";
 
@@ -79,8 +68,8 @@
             video = document.querySelector("video");
 
             player = dashjs.MediaPlayer().create();
-            player.initialize(video, mpd_url, true);
             player.setProtectionData(protData);
+            player.initialize(video, mpd_url, true);
             player.on(dashjs.MediaPlayer.events["PLAYBACK_ENDED"], function() {
                 clearInterval(eventPoller);
             });

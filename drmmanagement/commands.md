@@ -16,16 +16,13 @@ KID = A16E402B9056E371F36D348AA62BB749 -> (base64) oW5AK5BW43HzbTSKpiu3SQ==
 
 ### Example: 
 - Low: 
-./mp4encrypt --method MPEG-CENC --key 1:87237D20A19F58A740C05684E699B4AA:random --
-property 1:KID:A16E402B9056E371F36D348AA62BB749 --global-option mpeg-cenc.emepssh:true ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-low-fragmented.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-low-fragmented-encrypted.mp4
+./mp4encrypt --method MPEG-CENC --key 1:87237D20A19F58A740C05684E699B4AA:random --property 1:KID:A16E402B9056E371F36D348AA62BB749 --global-option mpeg-cenc.eme-pssh:true ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-low-fragmented.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-low-fragmented-encrypted.mp4
 
 - Medium:
-./mp4encrypt --method MPEG-CENC --key 1:87237D20A19F58A740C05684E699B4AA:random --
-property 1:KID:A16E402B9056E371F36D348AA62BB749 --global-option mpeg-cenc.emepssh:true ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented-encrypted.mp4
+./mp4encrypt --method MPEG-CENC --key 1:87237D20A19F58A740C05684E699B4AA:random --property 1:KID:A16E402B9056E371F36D348AA62BB749 --global-option mpeg-cenc.eme-pssh:true ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented-encrypted.mp4
 
 - High:
-./mp4encrypt --method MPEG-CENC --key 1:87237D20A19F58A740C05684E699B4AA:random --
-property 1:KID:A16E402B9056E371F36D348AA62BB749 --global-option mpeg-cenc.emepssh:true ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-high-fragmented.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-high-fragmented-encrypted.mp4
+./mp4encrypt --method MPEG-CENC --key 1:87237D20A19F58A740C05684E699B4AA:random --property 1:KID:A16E402B9056E371F36D348AA62BB749 --global-option mpeg-cenc.eme-pssh:true ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-high-fragmented.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-high-fragmented-encrypted.mp4
 
 ### Generate DASH file
 ./mp4dash ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-low-fragmented-encrypted.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-medium-fragmented-encrypted.mp4 ../../genvideos-vismetrics/videosDASHprep-genmpd/cleanbandit-ratherbe-high-fragmented-encrypted.mp4 -o ../../drmmanagement/mpd

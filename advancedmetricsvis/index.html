@@ -35,17 +35,6 @@
         </div>
 	</nav>
 
-	<script type="text/javascript">
-	(function() {
-		var burger = document.querySelector('.burger');
-		var nav = document.querySelector('#'+burger.dataset.target);
-		burger.addEventListener('click', function(){
-		burger.classList.toggle('is-active');
-		nav.classList.toggle('is-active');
-		});
-	})();
-	</script>
-
 	<div id='mainDiv' class="box">
         <div class="columns">
             <div class="column is-8 box">
@@ -156,7 +145,7 @@
         });
         
         function init(){
-            var video,player,mpd_url = "./mpd/stream.mpd";
+            var video,player,mpd_url = "https://dash.akamaized.net/dash264/TestCasesHD/2b/qualcomm/1/MultiResMPEG2.mpd";
             
             video = document.querySelector("video");
 
